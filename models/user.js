@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
   },
   logo: {
     minlength: 2,
-    maxlength: 30,
+    maxlength: 10,
     default: 'LOGO',
   },
 }, {

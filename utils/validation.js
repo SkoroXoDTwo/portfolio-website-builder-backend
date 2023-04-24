@@ -45,6 +45,12 @@ const validationUpdateUserAvatar = celebrate({
   }),
 });
 
+const validationUpdateUserLogo = celebrate({
+  body: Joi.object().keys({
+    logo: Joi.string().required().min(2).max(10),
+  }),
+});
+
 const validationCreateCard = celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(30),
@@ -66,4 +72,5 @@ module.exports = {
   validationUpdateUserAvatar,
   validationCreateCard,
   validationParamsControllersCards,
+  validationUpdateUserLogo,
 };

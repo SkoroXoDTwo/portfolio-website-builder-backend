@@ -138,6 +138,34 @@ module.exports.updateUserAvatar = (req, res, next) => {
     });
 };
 
+module.exports.updateUserLogo = (req, res, next) => {
+  const { logo } = req.body;
+  const { _id } = req.user;
+
+  User.findByIdAndUpdate(
+    _id,
+    { logo },
+    {
+      new: true,
+      runValidators: true,
+    },
+  )
+    .then((user) => {
+      if (!user) {
+        return next(new BadRequestError('Пользователь с указанным _id не найден'));
+      }
+
+      res.send({ data: user });
+    })
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return next(new BadRequestError('Переданы некорректные данные при обновлении логотипа.'));
+      }
+
+      next(err);
+    });
+};
+
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
